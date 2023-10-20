@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Dashboard</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <h1>You have been Authenticatd</h1>
-    </body>
-</html>
+<?php
+session_start();
+
+if (isset($_SESSION['user_name'])) {
+    $userName = $_SESSION['user_name'];
+    echo "Hello, $userName! Welcome to Pandora Company Limited.";
+} else {
+    header("Location: login.php");
+}

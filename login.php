@@ -1,22 +1,23 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Log In</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class="login">
-            <h1>Log In</h1>
-            <form action="login.php" method="post">
-                <label for="username">
-                    <i class="fas fa-user"></i>
-                </label>
-                <input type="text" name="username" placeholder="Username" id="username" required>
-                <label for="password">
-                    <i class="fas fa-lock"></i>
-                </label>
-                <input type="password" name="password" placeholder="Password" id="password" required>
-                <input type="submit" value="Log In">
-            </form>
-        </div>
-</html>    
+<?php
+session_start();
+require 'vendor/autoload.php';
+
+
+use League\OAuth2\Client\Provider\Google;
+
+// Load your configuration from a file or environment variables
+$clientId = '221514248537-gd95hcapbfgf3venm51gprrai8pumjja.apps.googleusercontent.com';
+$clientSecret = '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';
+$redirectUri = 'http://localhost:4000/Open_Auth/Open-Auth/redirect.php';
+
+$provider = new Google([
+    'clientId'     => $clientId,
+    'clientSecret' => $clientSecret,
+    'redirectUri'  => $redirectUri,
+]);
+
+$state = bin2hex(random_bytes(16)); // Generate a unique state
+$_SESSION['oauth2state'] = $state; // Store the state in the session
+
+$authUrl = $provider->getAuthorizationUrl(['state' => $state]);
+echo "<a href='$authUrl'>Login with Google</a>";
