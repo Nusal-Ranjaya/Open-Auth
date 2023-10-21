@@ -5,7 +5,7 @@ require 'vendor/autoload.php';
 
 use League\OAuth2\Client\Provider\Google;
 
-// Load your configuration from a file or environment variables
+// configurations
 $clientId = '221514248537-gd95hcapbfgf3venm51gprrai8pumjja.apps.googleusercontent.com';
 $clientSecret = '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';
 $redirectUri = 'http://localhost:4000/Open_Auth/Open-Auth/redirect.php';
@@ -25,7 +25,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
 
     $user = $provider->getResourceOwner($token);
 
-    // Store user information as needed and redirect to the dashboard.
+    // redirect to dashboard with user data
     $_SESSION['user_name'] = $user->getName();
     header("Location: dashboard.php");
 } else {
